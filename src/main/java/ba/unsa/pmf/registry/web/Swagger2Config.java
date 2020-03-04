@@ -32,7 +32,7 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfo(
                 "Registry API",
-                "Backend API for Impuls application.",
+                "Backend API for Registry application.",
                 "v1",
                 null,
                 new Contact("Registry", null, null),

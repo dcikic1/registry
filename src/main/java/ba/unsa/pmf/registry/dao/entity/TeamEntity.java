@@ -1,22 +1,16 @@
 package ba.unsa.pmf.registry.dao.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-@Table(name = "league")
-public class LeagueEntity implements Serializable {
-
+@Table(name = "team")
+public class TeamEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +29,14 @@ public class LeagueEntity implements Serializable {
     private String shortName;
 
     @NotNull
-    private String season;
+    @OneToOne
+    @JoinColumn(name = "team_type_id")
+    private AgeTypeEntity teamType;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "league_id")
+    private LeagueEntity league;
 
     @NotNull
     private LocalDateTime created;
@@ -49,16 +50,4 @@ public class LeagueEntity implements Serializable {
     @Column(name = "modified_by")
     private String modfiedBy;
 
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "status_id")
-    private LeagueStatusEntity status;
-
-    @NotNull
-    @OneToOne
-    @JoinColumn(name = "league_type_id")
-    private AgeTypeEntity leagueType;
-
-    @OneToMany
-    private List<TeamEntity> teams;
 }

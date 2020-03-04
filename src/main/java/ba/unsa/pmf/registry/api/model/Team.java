@@ -1,16 +1,13 @@
 package ba.unsa.pmf.registry.api.model;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class League implements Serializable {
+public class Team implements Serializable {
 
     private Long id;
 
@@ -20,6 +17,10 @@ public class League implements Serializable {
 
     private String shortName;
 
+    private Long teamTypeId;
+
+    private Long leagueId;
+
     private LocalDateTime created;
 
     private String createdBy;
@@ -27,10 +28,4 @@ public class League implements Serializable {
     private LocalDateTime modified;
 
     private String modfiedBy;
-
-    private Long statusId;
-
-    private Long leagueTypeId;
-
-    private String season;
 }
