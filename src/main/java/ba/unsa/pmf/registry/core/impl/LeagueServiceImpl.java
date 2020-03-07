@@ -9,6 +9,7 @@ import ba.unsa.pmf.registry.dao.repository.AgeTypeRepository;
 import ba.unsa.pmf.registry.dao.repository.LeagueRepository;
 import ba.unsa.pmf.registry.dao.repository.LeagueStatusRepository;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Data
 @Service
+@AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class LeagueServiceImpl implements LeagueService {
 
@@ -60,8 +62,9 @@ public class LeagueServiceImpl implements LeagueService {
         entity.setDisplayName(request.getDisplayName());
         entity.setShortName(request.getDisplayName());
         entity.setName(request.getName());
+        entity.setSeason(request.getSeason());
         entity.setStatus(leagueStatusRepository.findById(request.getStatusId()).get());
-        entity.setLeagueType(ageTypeRepository.findById(request.getStatusId()).get());
+        entity.setLeagueType(ageTypeRepository.findById(request.getLeagueTypeId()).get());
         return entity;
     }
 

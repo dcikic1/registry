@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = {"ba.unsa.pmf.registry.rest","ba.unsa.pmf.registry.core.impl","ba.unsa.pmf.registry.core.mapper",
 		"ba.unsa.pmf.registry.api.model","ba.unsa.pmf.registry.dao.entity","ba.unsa.pmf.registry.dao.repository","ba.unsa.pmf.registry.web" })
-@EnableEurekaClient
+//@EnableEurekaClient
 @SpringBootApplication
 public class RegistryApplication {
 

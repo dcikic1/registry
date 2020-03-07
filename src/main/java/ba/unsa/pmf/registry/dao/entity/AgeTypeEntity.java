@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "league_type")
+@Table(name = "age_type")
 public class AgeTypeEntity implements Serializable {
 
     @Id
