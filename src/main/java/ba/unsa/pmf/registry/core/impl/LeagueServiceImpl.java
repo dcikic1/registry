@@ -2,6 +2,7 @@ package ba.unsa.pmf.registry.core.impl;
 
 import ba.unsa.pmf.registry.api.model.League;
 import ba.unsa.pmf.registry.api.model.LeagueRequest;
+import ba.unsa.pmf.registry.api.model.Team;
 import ba.unsa.pmf.registry.api.service.LeagueService;
 import ba.unsa.pmf.registry.core.mapper.LeagueMapper;
 import ba.unsa.pmf.registry.dao.entity.LeagueEntity;
@@ -57,6 +58,7 @@ public class LeagueServiceImpl implements LeagueService {
     public void delete(Long id) {
         leagueRepository.deleteById(id);
     }
+
 
     private LeagueEntity setBasicLeagueInformation(LeagueRequest request, LeagueEntity entity) {
         entity.setDisplayName(request.getDisplayName());

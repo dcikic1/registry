@@ -15,6 +15,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Service
@@ -46,6 +47,39 @@ public class TeamServiceImpl implements TeamService {
         return teamMapper.entityToDto(newTeam);
     }
 
+    @Override
+    public void delete(Long id) {
+        teamRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Team> findAll() {
+        List<TeamEntity>entities= teamRepository.findAll();
+        return teamMapper.entitiesToDtos(entities);
+    }
+
+    @Override
+    public Team update(Long id, TeamRequest request) {
+        TeamEntity entity= teamRepository.findById(id).get();
+        entity.setModfiedBy("Dino");
+        entity.setModified(LocalDateTime.now());
+
+        entity.setName(request.getName());
+        entity.setDisplayName(request.getDisplayName());
+        entity.setShortName(request.getShortName());
+
+        entity.setLeague(leagueRepository.findById(request.getLeagueId()).get());
+        entity.setTeamType(ageTypeRepository.findById(request.getTeamTypeId()).get());
+
+        entity=teamRepository.save(entity);
+        return teamMapper.entityToDto(entity);
+    }
+
+    @Override
+    public List<Team> findTeamsInLeague(Long id) {
+        List<TeamEntity> teamEntities =  teamRepository.findTeamsByLegaueId(id);
+        return  teamMapper.entitiesToDtos(teamEntities);
+    }
 
 
 }

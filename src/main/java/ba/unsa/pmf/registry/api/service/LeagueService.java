@@ -2,6 +2,7 @@ package ba.unsa.pmf.registry.api.service;
 
 import ba.unsa.pmf.registry.api.model.League;
 import ba.unsa.pmf.registry.api.model.LeagueRequest;
+import ba.unsa.pmf.registry.api.model.Team;
 
 import java.util.List;
 
@@ -41,4 +42,5 @@ public interface LeagueService {
      * @param id
      */
     void delete(Long id);
+
 }

@@ -2,6 +2,7 @@ package ba.unsa.pmf.registry.rest;
 
 import ba.unsa.pmf.registry.api.model.League;
 import ba.unsa.pmf.registry.api.model.LeagueRequest;
+import ba.unsa.pmf.registry.api.model.Team;
 import ba.unsa.pmf.registry.api.service.LeagueService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,4 +46,5 @@ public class LeagueRest {
     public void delete(@PathVariable Long id){
         leagueService.delete(id);
     }
+
 }
