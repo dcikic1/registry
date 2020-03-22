@@ -42,6 +42,10 @@ public class GameRest {
     @DeleteMapping({"id"})
     public void delete(@PathVariable Long id) {gameService.delete(id);}
 
+    @ApiOperation(value = "Get all games")
+    @GetMapping("get-all-games")
+    public List<Game>findAllGames() {return gameService.findAllGames();}
+
     @ApiOperation(value = "Update official1")
     @PutMapping("update-official1/{id}")
     public Game updateOffical1(@PathVariable Long id, @PathVariable Long officialId ) {
@@ -82,7 +86,7 @@ public class GameRest {
     @ApiOperation(value = "Update away team score")
     @PutMapping("away-team-score/{id}/update")
     public Game updateAwayTeamScore(@PathVariable Long id, @PathVariable Long score ) {
-        return gameService.updateHomeAwayScore(id,score);}
+        return gameService.updateAwayTeamScore(id,score);}
 
     @ApiOperation(value = "Get all scores of home team")
     @GetMapping("home-team/{homeTeamId}/scores")

@@ -167,7 +167,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game updateHomeAwayScore(Long id, Long score) {
+    public Game updateAwayTeamScore(Long id, Long score) {
         GameEntity gameEntity = gameRepository.findById(id).get();
         gameEntity.setModfiedBy("Savez");
 
@@ -261,6 +261,12 @@ public class GameServiceImpl implements GameService {
         winLossDiff.setRecievedPoints(recieved);
 
         return winLossDiff;
+    }
+
+    @Override
+    public List<Game> findAllGames() {
+        List<GameEntity>gameEntities= gameRepository.findAll();
+        return gameMapper.entitiesToDtos(gameEntities);
     }
 
 }
