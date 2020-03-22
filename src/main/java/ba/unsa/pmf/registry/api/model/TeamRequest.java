@@ -2,8 +2,10 @@ package ba.unsa.pmf.registry.api.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class TeamRequest {
+public class TeamRequest implements Serializable {
     private Long id;
 
     private  String name;
