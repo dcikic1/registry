@@ -2,6 +2,7 @@ package ba.unsa.pmf.registry.api.service;
 
 import ba.unsa.pmf.registry.api.model.Game;
 import ba.unsa.pmf.registry.api.model.OfficialRequest;
+import ba.unsa.pmf.registry.api.model.WinLossDiff;
 
 import java.util.List;
 
@@ -39,4 +40,6 @@ public interface GameService {
     List<Game> getGamesOfTbleOfficl(Long tableOfficialId);
 
     List<Game> getGamesOfOfficial(Long officialId);
+
+    WinLossDiff getWinLossDiff(Long teamId, Long leagueId);
 }

@@ -9,5 +9,6 @@ public class WinLossDiff implements Serializable {
 
     Long victories;
     Long loses;
-    Long difference;
+    Long scoredPoints;
+    Long recievedPoints;
 }

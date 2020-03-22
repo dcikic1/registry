@@ -3,6 +3,7 @@ package ba.unsa.pmf.registry.rest;
 
 import ba.unsa.pmf.registry.api.model.Game;
 import ba.unsa.pmf.registry.api.model.OfficialRequest;
+import ba.unsa.pmf.registry.api.model.WinLossDiff;
 import ba.unsa.pmf.registry.api.service.GameService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -104,4 +105,10 @@ public class GameRest {
     @ApiOperation(value="Get all games where official was")
     @GetMapping("games-of-official/{officialId}")
     public List<Game>getGamesOfOfficial(@PathVariable Long officialId) {return gameService.getGamesOfOfficial(officialId);}
+
+    @ApiOperation(value="Number of victories, loses and difference ")
+    @GetMapping("victories-loses-difference/{teamId}/{leagueId}")
+    public WinLossDiff getWinLossDiff(@PathVariable Long teamId, @PathVariable Long leagueId){
+        return gameService.getWinLossDiff(teamId,leagueId);
+    }
 }

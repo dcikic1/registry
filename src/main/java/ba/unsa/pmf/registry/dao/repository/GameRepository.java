@@ -18,7 +18,7 @@ public interface GameRepository extends JpaRepository<GameEntity,Long> {
     List<Long> findAwayScoresByAwayId(@Param("awayTeamId") Long awayTeamId);
 
     @Query("select g from GameEntity g where g.leagueId =:leagueId")
-    List<GameEntity> getGamesByLeagueId(@Param("leagueId") Long leagueId);
+    List<GameEntity> findGamesByLeagueId(@Param("leagueId") Long leagueId);
 
     @Query("select g from GameEntity g where g.tableOfficialWriterId =:tableOfficialId or g.tableOfficialTimeId =:tableOfficialId " +
             "or g.tableOfficialShotClockId =:tableOfficialId" )
@@ -26,4 +26,7 @@ public interface GameRepository extends JpaRepository<GameEntity,Long> {
 
     @Query("select g from GameEntity g where g.official1Id =:officialId or g.official2Id =:officialId or g.official3Id =:officialId")
     List<GameEntity> findGamesOfOfficial(@Param("officialId") Long officialId);
+
+    @Query("select g from GameEntity g where (g.homeTeamId =:teamId or g.awayTeamId =:teamId) and g.leagueId =:leagueId")
+    List<GameEntity> findGamesByTeamAndLeague(@Param("teamId") Long teamId, @Param("leagueId") Long leagueId);
 }

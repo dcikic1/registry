@@ -2,6 +2,7 @@ package ba.unsa.pmf.registry.core.impl;
 
 import ba.unsa.pmf.registry.api.model.Game;
 import ba.unsa.pmf.registry.api.model.OfficialRequest;
+import ba.unsa.pmf.registry.api.model.WinLossDiff;
 import ba.unsa.pmf.registry.api.service.GameService;
 import ba.unsa.pmf.registry.core.mapper.GameMapper;
 import ba.unsa.pmf.registry.dao.entity.GameEntity;
@@ -191,7 +192,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<Game> getGamesInLeague(Long leagueId) {
-        List<GameEntity>gameEntities= gameRepository.getGamesByLeagueId(leagueId);
+        List<GameEntity>gameEntities= gameRepository.findGamesByLeagueId(leagueId);
         return gameMapper.entitiesToDtos(gameEntities);
     }
 
@@ -205,6 +206,61 @@ public class GameServiceImpl implements GameService {
     public List<Game> getGamesOfOfficial(Long officialId) {
         List<GameEntity>gameEntities = gameRepository.findGamesOfOfficial(officialId);
         return gameMapper.entitiesToDtos(gameEntities);
+    }
+
+    @SuppressWarnings("Duplicates")
+    @Override
+    public WinLossDiff getWinLossDiff(Long teamId, Long leagueId) {
+
+        WinLossDiff winLossDiff= new WinLossDiff();
+        List<GameEntity>gameEntities=gameRepository.findGamesByTeamAndLeague(teamId,leagueId);
+
+        int win=0;
+        int loss=0;
+        Long scored= Long.valueOf(0);
+        Long recieved= Long.valueOf(0);
+        for(int i=0;i<gameEntities.size();i++){
+
+            Long tempHomeScore= gameEntities.get(i).getHomeScore();
+            Long tempAwayScore= gameEntities.get(i).getAwayScore();
+            Long tempHomeId= gameEntities.get(i).getHomeTeamId();
+            Long tempAwayId= gameEntities.get(i).getAwayTeamId();
+
+            if(tempHomeId ==teamId && tempHomeScore>tempAwayScore)
+            {
+                    win++;
+                    scored += gameEntities.get(i).getHomeScore();
+                    recieved += gameEntities.get(i).getAwayScore();
+
+            }
+             if (tempHomeId ==teamId && tempHomeScore<tempAwayScore)
+            {
+                loss++;
+                scored += gameEntities.get(i).getHomeScore();
+                recieved += gameEntities.get(i).getAwayScore();
+            }
+
+            if(tempAwayId ==teamId && tempAwayScore>tempHomeScore)
+            {
+                    win++;
+                    scored=scored+gameEntities.get(i).getAwayScore();
+                    recieved += gameEntities.get(i).getHomeScore();
+
+            }
+            if(tempAwayId ==teamId && tempAwayScore<tempHomeScore)
+            {
+                loss++;
+                scored=scored+gameEntities.get(i).getAwayScore();
+                recieved += gameEntities.get(i).getHomeScore();
+            }
+
+        }
+        winLossDiff.setVictories((long) win);
+        winLossDiff.setLoses((long) loss);
+        winLossDiff.setScoredPoints(scored);
+        winLossDiff.setRecievedPoints(recieved);
+
+        return winLossDiff;
     }
 
 }
