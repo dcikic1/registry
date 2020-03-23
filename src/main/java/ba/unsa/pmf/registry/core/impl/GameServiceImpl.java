@@ -119,7 +119,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game updateTableOffcWriter(Long id, Long officialId) {
+    public Game updateTableOfficialWriter(Long id, Long officialId) {
         GameEntity gameEntity = gameRepository.findById(id).get();
         gameEntity.setModfiedBy("Savez");
 
@@ -131,7 +131,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game updateTableOffcTime(Long id, Long officialId) {
+    public Game updateTableOfficialTime(Long id, Long officialId) {
         GameEntity gameEntity = gameRepository.findById(id).get();
         gameEntity.setModfiedBy("Savez");
 
@@ -143,7 +143,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public Game updateTableOffcShtClock(Long id, Long officialId) {
+    public Game updateTableOfficialShotClock(Long id, Long officialId) {
         GameEntity gameEntity = gameRepository.findById(id).get();
         gameEntity.setModfiedBy("Savez");
 
@@ -179,13 +179,13 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<Long> getHomeTeamScrs(Long homeTeamId) {
+    public List<Long> getHomeTeamScores(Long homeTeamId) {
         List<Long> homeScores= gameRepository.findHomeScoresByHomeId(homeTeamId);
         return homeScores;
     }
 
     @Override
-    public List<Long> getAwayTeamScrs(Long awayTeamId) {
+    public List<Long> getAwayTeamScores(Long awayTeamId) {
         List<Long> awayScores= gameRepository.findAwayScoresByAwayId(awayTeamId);
         return awayScores;
     }
@@ -197,7 +197,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<Game> getGamesOfTbleOfficl(Long tableOfficialId) {
+    public List<Game> getGamesOfTableOfficial(Long tableOfficialId) {
         List<GameEntity>gameEntities= gameRepository.findGamesOfTbleOffficl(tableOfficialId);
         return gameMapper.entitiesToDtos(gameEntities);
     }

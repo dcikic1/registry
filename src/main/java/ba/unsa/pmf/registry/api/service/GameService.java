@@ -82,7 +82,7 @@ public interface GameService {
      * @return Game updated game
      */
 
-    Game updateTableOffcWriter(Long id, Long officialId);
+    Game updateTableOfficialWriter(Long id, Long officialId);
 
     /**
      * Updates game in database
@@ -91,7 +91,7 @@ public interface GameService {
      * @return Game updated game
      */
 
-    Game updateTableOffcTime(Long id, Long officialId);
+    Game updateTableOfficialTime(Long id, Long officialId);
 
     /**
      * Updates game in database
@@ -100,7 +100,7 @@ public interface GameService {
      * @return Game updated game
      */
 
-    Game updateTableOffcShtClock(Long id, Long officialId);
+    Game updateTableOfficialShotClock(Long id, Long officialId);
 
     /**
      * Updates game in database
@@ -126,7 +126,7 @@ public interface GameService {
      * @return {@Link List of scores}
      */
 
-    List<Long> getHomeTeamScrs(Long homeTeamId);
+    List<Long> getHomeTeamScores(Long homeTeamId);
 
     /**
      * Retrieves all away team scores persisted in database
@@ -134,7 +134,7 @@ public interface GameService {
      * @return {@Link List of scores}
      */
 
-    List<Long> getAwayTeamScrs(Long awayTeamId);
+    List<Long> getAwayTeamScores(Long awayTeamId);
 
     /**
      * Retrieves all games in league persisted in database
@@ -150,7 +150,7 @@ public interface GameService {
      * @return {@Link List of games}
      */
 
-    List<Game> getGamesOfTbleOfficl(Long tableOfficialId);
+    List<Game> getGamesOfTableOfficial(Long tableOfficialId);
 
     /**
      * Retrieves all games of  official persisted in database
