@@ -64,6 +64,10 @@ public class GameEntity {
     private Long leagueId;
 
     @NotNull
+    @Column(name="fixture")
+    private Long fixture;
+
+    @NotNull
     @Column(name = "created_by")
     private String createdBy;
 

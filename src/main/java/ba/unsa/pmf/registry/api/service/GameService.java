@@ -126,7 +126,7 @@ public interface GameService {
      * @return {@Link List of scores}
      */
 
-    List<Long> getHomeTeamScores(Long homeTeamId);
+    List<Game> getHomeTeamScores(Long homeTeamId);
 
     /**
      * Retrieves all away team scores persisted in database
@@ -134,7 +134,7 @@ public interface GameService {
      * @return {@Link List of scores}
      */
 
-    List<Long> getAwayTeamScores(Long awayTeamId);
+    List<Game> getAwayTeamScores(Long awayTeamId);
 
     /**
      * Retrieves all games in league persisted in database
@@ -163,10 +163,8 @@ public interface GameService {
 
     WinLossDiff getWinLossDiff(Long teamId, Long leagueId);
 
-    /**
-     * Retrieves all leagues persisted in database
-     *
-     * @return {@Link List of games}
-     */
-    List<Game> findAllGames();
+
+
+
+
 }

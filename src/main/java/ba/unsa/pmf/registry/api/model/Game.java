@@ -36,6 +36,8 @@ public class Game implements Serializable {
 
     private Long awayTeamId;
 
+    private Long fixture;
+
     private Long leagueId;
 
     private String createdBy;

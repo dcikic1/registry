@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-03-20T16:48:56+0100",
+    date = "2020-03-25T19:21:49+0100",
     comments = "version: 1.3.1.Final, compiler: javac, environment: Java 11.0.2 (Oracle Corporation)"
 )
 @Component
@@ -35,6 +35,7 @@ public class GameMapperImpl implements GameMapper {
         game.setAwayScore( gameEntity.getAwayScore() );
         game.setHomeTeamId( gameEntity.getHomeTeamId() );
         game.setAwayTeamId( gameEntity.getAwayTeamId() );
+        game.setFixture( gameEntity.getFixture() );
         game.setLeagueId( gameEntity.getLeagueId() );
         game.setCreatedBy( gameEntity.getCreatedBy() );
         game.setModified( gameEntity.getModified() );
@@ -64,6 +65,7 @@ public class GameMapperImpl implements GameMapper {
         gameEntity.setHomeTeamId( game.getHomeTeamId() );
         gameEntity.setAwayTeamId( game.getAwayTeamId() );
         gameEntity.setLeagueId( game.getLeagueId() );
+        gameEntity.setFixture( game.getFixture() );
         gameEntity.setCreatedBy( game.getCreatedBy() );
         gameEntity.setModified( game.getModified() );
         gameEntity.setModfiedBy( game.getModfiedBy() );

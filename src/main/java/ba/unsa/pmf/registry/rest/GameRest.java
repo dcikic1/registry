@@ -42,10 +42,6 @@ public class GameRest {
     @DeleteMapping({"id"})
     public void delete(@PathVariable Long id) {gameService.delete(id);}
 
-    @ApiOperation(value = "Get all games")
-    @GetMapping("get-all-games")
-    public List<Game>findAllGames() {return gameService.findAllGames();}
-
     @ApiOperation(value = "Update official1")
     @PutMapping("update-official1/{id}")
     public Game updateOfficial1(@PathVariable Long id, @PathVariable Long officialId ) {
@@ -90,11 +86,11 @@ public class GameRest {
 
     @ApiOperation(value = "Get all scores of home team")
     @GetMapping("home-team/{homeTeamId}/scores")
-    public List<Long>getHomeTeamScores(@PathVariable Long homeTeamId) {return gameService.getHomeTeamScores(homeTeamId);}
+    public List<Game>getHomeTeamScores(@PathVariable Long homeTeamId) {return gameService.getHomeTeamScores(homeTeamId);}
 
     @ApiOperation(value = "Get all scores of away team")
     @GetMapping("away-team/{awayTeamId}/scores")
-    public List<Long>getAwayTeamScores(@PathVariable Long awayTeamId) {return gameService.getAwayTeamScores(awayTeamId);}
+    public List<Game>getAwayTeamScores(@PathVariable Long awayTeamId) {return gameService.getAwayTeamScores(awayTeamId);}
 
     @ApiOperation(value = "Get all games in league")
     @GetMapping("games-in-league/{leagueId}")
@@ -115,4 +111,5 @@ public class GameRest {
     public WinLossDiff getWinLossDiff(@PathVariable Long teamId, @PathVariable Long leagueId){
         return gameService.getWinLossDiff(teamId,leagueId);
     }
+
 }

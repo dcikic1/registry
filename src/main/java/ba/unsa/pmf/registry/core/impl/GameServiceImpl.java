@@ -7,6 +7,7 @@ import ba.unsa.pmf.registry.api.service.GameService;
 import ba.unsa.pmf.registry.core.mapper.GameMapper;
 import ba.unsa.pmf.registry.dao.entity.GameEntity;
 import ba.unsa.pmf.registry.dao.repository.GameRepository;
+import ba.unsa.pmf.registry.dao.repository.TeamRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class GameServiceImpl implements GameService {
 
     GameMapper gameMapper;
     GameRepository gameRepository;
+    TeamRepository teamRepository;
 
 
     @Override
@@ -36,6 +38,7 @@ public class GameServiceImpl implements GameService {
         newGame.setHomeTeamId(game.getHomeTeamId());
         newGame.setAwayTeamId(game.getAwayTeamId());
         newGame.setLeagueId(game.getLeagueId());
+        newGame.setFixture(game.getFixture());
         newGame.setOfficial1Id(game.getOfficial1Id());
         newGame.setOfficial2Id(game.getOfficial2Id());
         newGame.setOfficial3Id(game.getOfficial3Id());
@@ -179,14 +182,14 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<Long> getHomeTeamScores(Long homeTeamId) {
-        List<Long> homeScores= gameRepository.findHomeScoresByHomeId(homeTeamId);
+    public List<Game> getHomeTeamScores(Long homeTeamId) {
+        List<Game> homeScores= gameRepository.findHomeScoresByHomeId(homeTeamId);
         return homeScores;
     }
 
     @Override
-    public List<Long> getAwayTeamScores(Long awayTeamId) {
-        List<Long> awayScores= gameRepository.findAwayScoresByAwayId(awayTeamId);
+    public List<Game> getAwayTeamScores(Long awayTeamId) {
+        List<Game> awayScores= gameRepository.findAwayScoresByAwayId(awayTeamId);
         return awayScores;
     }
 
@@ -208,65 +211,59 @@ public class GameServiceImpl implements GameService {
         return gameMapper.entitiesToDtos(gameEntities);
     }
 
-    @SuppressWarnings("Duplicates")
+
     @Override
     public WinLossDiff getWinLossDiff(Long teamId, Long leagueId) {
 
-        WinLossDiff winLossDiff= new WinLossDiff();
         List<GameEntity>gameEntities=gameRepository.findGamesByTeamAndLeague(teamId,leagueId);
 
-        int win=0;
-        int loss=0;
-        Long scored= Long.valueOf(0);
-        Long recieved= Long.valueOf(0);
-        for(int i=0;i<gameEntities.size();i++){
+        WinLossDiff winLossDiff = new WinLossDiff();
 
-            Long tempHomeScore= gameEntities.get(i).getHomeScore();
-            Long tempAwayScore= gameEntities.get(i).getAwayScore();
-            Long tempHomeId= gameEntities.get(i).getHomeTeamId();
-            Long tempAwayId= gameEntities.get(i).getAwayTeamId();
-
-            if(tempHomeId ==teamId && tempHomeScore>tempAwayScore)
-            {
-                    win++;
-                    scored += gameEntities.get(i).getHomeScore();
-                    recieved += gameEntities.get(i).getAwayScore();
-
-            }
-             if (tempHomeId ==teamId && tempHomeScore<tempAwayScore)
-            {
-                loss++;
-                scored += gameEntities.get(i).getHomeScore();
-                recieved += gameEntities.get(i).getAwayScore();
-            }
-
-            if(tempAwayId ==teamId && tempAwayScore>tempHomeScore)
-            {
-                    win++;
-                    scored=scored+gameEntities.get(i).getAwayScore();
-                    recieved += gameEntities.get(i).getHomeScore();
-
-            }
-            if(tempAwayId ==teamId && tempAwayScore<tempHomeScore)
-            {
-                loss++;
-                scored=scored+gameEntities.get(i).getAwayScore();
-                recieved += gameEntities.get(i).getHomeScore();
-            }
-
-        }
-        winLossDiff.setVictories((long) win);
-        winLossDiff.setLoses((long) loss);
-        winLossDiff.setScoredPoints(scored);
-        winLossDiff.setRecievedPoints(recieved);
+        for(GameEntity game: gameEntities)
+            winLossDiff= updateWinLossDiff(winLossDiff,game,teamId);
 
         return winLossDiff;
     }
 
-    @Override
-    public List<Game> findAllGames() {
-        List<GameEntity>gameEntities= gameRepository.findAll();
-        return gameMapper.entitiesToDtos(gameEntities);
+
+
+    private WinLossDiff updateWinLossDiff(WinLossDiff winLossDiff,GameEntity game, Long teamId) {
+
+        winLossDiff.setTeamId(teamId);
+        if (game.getHomeTeamId() == teamId) {
+            if (game.getHomeScore() > game.getAwayScore()) {
+                winLossDiff.incrementVictories();
+            } else {
+                winLossDiff.incrementLosses();
+            }
+            winLossDiff.increaseScoredPoints(game.getHomeScore());
+            winLossDiff.increaseRecievedPoints(game.getAwayScore());
+        }
+        else {
+            if (game.getHomeScore() < game.getAwayScore()) {
+                winLossDiff.incrementVictories();
+            } else {
+                winLossDiff.incrementLosses();
+            }
+            winLossDiff.increaseScoredPoints(game.getAwayScore());
+            winLossDiff.increaseRecievedPoints(game.getHomeScore());
+
+        }
+
+        return winLossDiff;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

@@ -1,5 +1,6 @@
 package ba.unsa.pmf.registry.dao.repository;
 
+import ba.unsa.pmf.registry.api.model.Game;
 import ba.unsa.pmf.registry.dao.entity.GameEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,10 +13,10 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<GameEntity,Long> {
 
     @Query("select g.homeScore from GameEntity g where g.homeTeamId =:homeTeamId")
-    List<Long> findHomeScoresByHomeId(@Param("homeTeamId")Long homeTeamId);
+    List<Game> findHomeScoresByHomeId(@Param("homeTeamId")Long homeTeamId);
 
     @Query("select g.awayScore from GameEntity g where g.awayTeamId =:awayTeamId")
-    List<Long> findAwayScoresByAwayId(@Param("awayTeamId") Long awayTeamId);
+    List<Game> findAwayScoresByAwayId(@Param("awayTeamId") Long awayTeamId);
 
     @Query("select g from GameEntity g where g.leagueId =:leagueId")
     List<GameEntity> findGamesByLeagueId(@Param("leagueId") Long leagueId);
@@ -29,4 +30,6 @@ public interface GameRepository extends JpaRepository<GameEntity,Long> {
 
     @Query("select g from GameEntity g where (g.homeTeamId =:teamId or g.awayTeamId =:teamId) and g.leagueId =:leagueId")
     List<GameEntity> findGamesByTeamAndLeague(@Param("teamId") Long teamId, @Param("leagueId") Long leagueId);
+
+
 }
